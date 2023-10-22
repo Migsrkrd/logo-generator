@@ -10,11 +10,11 @@
 
 const fs = require("fs");
 const inquirer = require("inquirer");
-const generateSvg = require("./lib/LogoGenerator")
-const Circle = require("./lib/shapes")
+const Circle = require("./lib/circle")
+const Square = require("./lib/square")
 
-function writeToFileCircle(filename, circleFunction){
-    fs.writeFile(filename, circleFunction, (err)=>
+function writeShapeToFile(filename, shapeFunction){
+    fs.writeFile(filename, shapeFunction, (err)=>
     err ? console.error(err) : console.log("Success! go checkout your new logo!"))
 }
 
@@ -49,8 +49,12 @@ inquirer
     ])
 
     .then((response)=>{
-        if(response.Shape = "Circle"){
+        if(response.Shape.toString() === "Circle"){
             const circleOne = new Circle(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
-        writeToFileCircle(`${response.FileName}.svg`, circleOne.generateCircleLogo())
+        writeShapeToFile(`${response.FileName}.svg`, circleOne.generateCircleLogo())
+        }
+        else if(response.Shape.toString() == "Square"){
+            const squareOne = new Square(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
+            writeShapeToFile(`${response.FileName}.svg`, squareOne.generateSquareLogo())
         }
     })
