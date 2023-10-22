@@ -12,6 +12,7 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const Circle = require("./lib/circle")
 const Square = require("./lib/square")
+const Triangle = require("./lib/triangle")
 
 function writeShapeToFile(filename, shapeFunction){
     fs.writeFile(filename, shapeFunction, (err)=>
@@ -56,5 +57,9 @@ inquirer
         else if(response.Shape.toString() == "Square"){
             const squareOne = new Square(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
             writeShapeToFile(`${response.FileName}.svg`, squareOne.generateSquareLogo())
+        }
+        else if(response.Shape.toString() == "Triangle"){
+            const triangleOne = new Triangle(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
+            writeShapeToFile(`${response.FileName}.svg`, triangleOne.generateTriangleLogo())
         }
     })
