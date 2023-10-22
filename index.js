@@ -1,23 +1,18 @@
-// create file layout provided by instructions
-// add in inquirer for questions
-// look at svg resources in the readme for more info on the doc type
-// 
-// use inquirer to gather proper responses
-// use the response keys and apply them into shape functions
-//shape will be a class
-//each object will inherant shape properties
-//create a test for each shape
-
+// ------------------ Declarations -------------------------------------//
 const fs = require("fs");
 const inquirer = require("inquirer");
 const Circle = require("./lib/circle")
 const Square = require("./lib/square")
 const Triangle = require("./lib/triangle")
 
+//--------------------------- Create Write File Function -----------------------------//
+
 function writeShapeToFile(filename, shapeFunction){
     fs.writeFile(filename, shapeFunction, (err)=>
     err ? console.error(err) : console.log(`Generated ${filename}`))
 }
+
+//--------------------------- Use Inquirer to collect User Input -------------------------------------//
 
 inquirer
     .prompt([
@@ -49,9 +44,13 @@ inquirer
         }
     ])
 
+//-------------------------- Action for user response ----------------------------------------//
+
     .then((response)=>{
-        // console.log(response)
         const strName = response.Shape.toString()
+
+//--------------------------- Conditional Statements to approve criteria --------------------------//
+
         if(response.FileName === ""){
             response.FileName = "logo";
         };
@@ -78,6 +77,9 @@ PLEASE TRY AGAIN AND REMEMBER TO SELECT A SHAPE
         if(response.ShapeColor === ""){
             response.ShapeColor = "grey"
         }
+
+//------------- Conditional statements to decide which class to utilize ----------//
+
         if(strName === "Circle"){
             const circleOne = new Circle(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
         writeShapeToFile(`${response.FileName}.svg`, circleOne.generateCircleLogo())
