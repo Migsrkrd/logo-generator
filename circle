@@ -1,0 +1,6 @@
+<svg width="200" height="300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <circle cx="100" cy="100" r="100" fill="red"/>
+          <text x="15" y="120" font-family="Verdana" font-size="100" fill="blue">fre</text>
+        </g>
+      </svg>

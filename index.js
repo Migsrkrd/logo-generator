@@ -11,6 +11,12 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const generateSvg = require("./lib/LogoGenerator")
+const Circle = require("./lib/shapes")
+
+function writeToFileCircle(filename, circleFunction){
+    fs.writeFile(filename, circleFunction, (err)=>
+    err ? console.error(err) : console.log("Success! go checkout your new logo!"))
+}
 
 inquirer
     .prompt([
@@ -34,9 +40,17 @@ inquirer
             type: "input",
             message: "What color would you like your shape to be?",
             name: "ShapeColor"
+        },
+        {
+            type: "input",
+            message: "What would you like to call this file?(one word only)",
+            name: "FileName"
         }
     ])
 
     .then((response)=>{
-        console.log(response)
+        if(response.Shape = "Circle"){
+            const circleOne = new Circle(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
+        writeToFileCircle(`${response.FileName}.svg`, circleOne.generateCircleLogo())
+        }
     })
