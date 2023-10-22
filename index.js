@@ -16,7 +16,7 @@ const Triangle = require("./lib/triangle")
 
 function writeShapeToFile(filename, shapeFunction){
     fs.writeFile(filename, shapeFunction, (err)=>
-    err ? console.error(err) : console.log("Success! go checkout your new logo!"))
+    err ? console.error(err) : console.log(`Generated ${filename}`))
 }
 
 inquirer
@@ -50,15 +50,43 @@ inquirer
     ])
 
     .then((response)=>{
-        if(response.Shape.toString() === "Circle"){
+        // console.log(response)
+        const strName = response.Shape.toString()
+        if(response.FileName === ""){
+            response.FileName = "logo";
+        };
+        if(response.Letters.length > 3 || response.Letters.length < 1){
+            return console.error(`
+                ⚠️⚠️⚠️ 
+
+PLEASE TRY AGAIN WITH NO MORE THAN 3 LETTERS!!!
+
+                ⚠️⚠️⚠️
+                `)
+        }
+        if(response.TextColor === "")
+            response.TextColor === "black"
+        if(strName === ""){
+            return console.error(`
+                ⚠️⚠️⚠️ 
+
+PLEASE TRY AGAIN AND REMEMBER TO SELECT A SHAPE 
+
+                ⚠️⚠️⚠️
+                `)
+        }
+        if(response.ShapeColor === ""){
+            response.ShapeColor = "grey"
+        }
+        if(strName === "Circle"){
             const circleOne = new Circle(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
         writeShapeToFile(`${response.FileName}.svg`, circleOne.generateCircleLogo())
         }
-        else if(response.Shape.toString() == "Square"){
+        else if(strName === "Square"){
             const squareOne = new Square(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
             writeShapeToFile(`${response.FileName}.svg`, squareOne.generateSquareLogo())
         }
-        else if(response.Shape.toString() == "Triangle"){
+        else if(strName === "Triangle"){
             const triangleOne = new Triangle(response.Letters, response.TextColor, response.Shape, response.ShapeColor)
             writeShapeToFile(`${response.FileName}.svg`, triangleOne.generateTriangleLogo())
         }
